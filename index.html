@@ -25,16 +25,34 @@
 				
 				
 				<div id="tableHeaders">
-				<% var daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %>
 					<% _.each(daysOfTheWeek, function(day){%>
 						<div class="table_header"><%= day %></div>
 					<% }); %>
 				</div>
 				<div id="dayContainer">
-				<% _.each(days, function(day){ console.log(year);%>
-					<div class="<%= day.classes %>"><span><%= day.day %></span></div>
+				<% _.each(days, function(day){%>
+					<div class="<%= day.classes %>">
+						<span><%= day.day %></span>
+						<span>
+							<% _.each(day.events, function(){%>
+								<%= day.events[0].title %>
+
+							<% }); %>
+							
+						</span>
+					</div>
 				<% }); %>
-				</div>
+				</div>	
+				// <div class="event-listing">
+				//   <div class="event-listing-title">EVENTS THIS MONTH</div>
+				//   <% _.each(eventsThisMonth, function(event) { %>
+				//       <div class="event-item">
+				//         <div class="event-item-name"><%= event.name %></div>
+				//         <div class="event-item-location"><%= event.location %></div>
+				//       </div>
+				//     <% }); %>
+				// </div>
+				        
 			
 		</script>
 </body>
