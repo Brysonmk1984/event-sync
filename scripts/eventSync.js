@@ -15,7 +15,7 @@ $(document).ready(function(){
 						//Do stuff with day data
 						$("#eventDigestModal").modal();
 					}else{console.log(2);
-						$(this).toggleClass('selected');
+						$(target.element).toggleClass('selected');
 						// still need to remove class when modal closes
 					}
 
