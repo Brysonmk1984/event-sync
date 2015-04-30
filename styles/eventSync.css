@@ -1,5 +1,5 @@
 body{
-	background:#202024;
+	background:#141416;
 }
 #calendar{
 	position:relative;
@@ -45,6 +45,7 @@ body{
 	display:inline-block;
 }
 .day{
+	position:relative;
 	display:inline-block;
 	margin-right:5px;
 	margin-bottom:5px;
@@ -55,18 +56,31 @@ body{
 	cursor:pointer;
 	vertical-align: top;
 }
-.day span{
+.day .day_number{
 	display:block;
 	padding:5px;
+	font-size:1.2em;
 }
 .day.last-month span, .day.next-month span{
 	display:none;
 }
 .day:hover{
+	background:#202024;
+}
+.day.selected{
 	background:#2c2c33;
 }
 .day:nth-child(7n+7){
 	margin-right:0px;
+}
+
+.info_button_container{
+	display:block;
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	width:10px;
+	color:#7e7e7e;
 }
 
 @media(max-width: 919px){
