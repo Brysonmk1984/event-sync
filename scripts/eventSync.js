@@ -54,7 +54,10 @@ $(document).ready(function(){
 			$(".day").removeClass("active_info");
 		});
 
-
+		$("#enrollNowLink").click(function(){
+			$("#loginModal").modal('hide');
+			$("#enrollModal").modal('show');
+		});
 		
 	})();
 });
