@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="scripts/underscore.js"></script>
 	<script type="text/javascript" src="scripts/clndr.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="scripts/jqColorPicker.min.js"></script>
 	<script type="text/javascript" src="scripts/eventSync.js"></script>
 	<!-- <link rel="stylesheet" type="text/css" href="styles/clndr.css"> -->
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -15,6 +16,27 @@
 	<link rel="stylesheet" type="text/css" href="styles/eventSync.css">
 </head>
 <body>
+	<header>
+	<!-- NEEDS WORK -->
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+				    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar">test</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				    <a class="navbar-brand" href="#">InSync</a>
+				</div>
+			  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			     	<ul class="nav navbar-nav pull-right">
+			      		<li class="active"><a href="#"><i class="fa fa-user"></i> Login</a></li>
+			      	</ul>
+			    </div>
+			</div>
+		</nav>
+	</header>
 	<div id="container">
 		<div id="calendar"></div>
 	</div>
@@ -35,13 +57,25 @@
 				<div id="dayContainer">
 				<% _.each(days, function(day){ %>
 					<div class="<%= day.classes %>">
-						<span class="day_number"><%= day.day %></span>
-						<span>
-							<% _.each(day.events, function(){%>
-								<%= day.events[0].title %>
-							<% }); %>
-							
+						<span class="short_day">
+							<% var shortDayOfWeek = String(day.date._d).slice(0,3);%>
+							<%= shortDayOfWeek %>,
 						</span>
+						<span class="day_number"><%= day.day %></span>
+						<div class="event_container">
+							<% if(day.classes.indexOf('adjacent-month') === -1){%>
+								<% _.each(day.events, function(){%>
+									<%= day.events[0].title %>
+								<% }); %>
+							<% }; %>
+						</div>
+
+						<!-- This will be the indicators for users selecting a certain date.
+						<div class="circle_container">
+							<% _.each(day.something, function(){%>
+								<i class="fa fa-circle"></i>
+							<% }); %>
+						</div> -->
 						<% if(day.classes.indexOf('adjacent-month') === -1){%>
 							<div class="info_button_container"><i class="fa fa-info"></i></div>
 						<% }; %>
@@ -100,6 +134,10 @@
 			      		<div class="form-group">
 			      		   	<label for="exampleInputPassword2">Password</label>
 			      		   	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+			      		</div>
+			      		<div class="form-group">
+			      		   	<label for="exampleInputPassword2">Color</label>
+			      		   	<input type="text" class="form-control color" id="exampleInputPassword2" placeholder="Choose your color">
 			      		</div>
 			      		 
 			      	</form>
@@ -199,6 +237,5 @@
 			    </div>
 			</div>
 		</div>
-
 </body>
 </html>

@@ -1,6 +1,13 @@
 body{
 	background:#141416;
 }
+.navbar-default{
+	background:none;
+	border:none;
+}
+.navbar-collapse{
+	padding:0px;
+}
 #calendar{
 	position:relative;
 	max-width:920px;
@@ -55,10 +62,15 @@ body{
 	height:120px;
 	cursor:pointer;
 	vertical-align: top;
+	font-size:.9em;
 }
 .day .day_number{
-	display:block;
+	display:inline-block;
 	padding:5px;
+	font-size:1.2em;
+}
+.day .short_day{
+	display:none;
 	font-size:1.2em;
 }
 .day.last-month span, .day.next-month span{
@@ -73,7 +85,23 @@ body{
 .day:nth-child(7n+7){
 	margin-right:0px;
 }
-
+.event_container{
+	margin-left:5px;
+	height:70px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.circle_container{
+	display:block;
+	position:absolute;
+	bottom:3px;
+	left:5px;
+	width:90px;
+	font-size:.7em;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
 .info_button_container{
 	display:block;
 	position:absolute;
@@ -82,7 +110,9 @@ body{
 	width:10px;
 	color:#7e7e7e;
 }
-
+.cp-color-picker{
+	z-index:10001;
+}
 @media(max-width: 919px){
 	#container{
 		text-align:center;
@@ -90,8 +120,19 @@ body{
 	#tableHeaders{
 		display:none;
 	}
+	.day{
+		width:200px;
+		height:200px;
+		font-size:1.2em;
+	}
 	.day:nth-child(7n+7){
 		margin-right:5px;
+	}
+	.day .short_day{
+		display:inline-block;
+	}
+	.day.adjacent-month{
+		display:none;
 	}
 	.clndr-previous-button{
 		position:relative;
