@@ -1,44 +1,51 @@
 extends layout
 
 block content
-	#container
-		#calendar
-	<script type="text/template" id="calendar-template">
-	|	<div id="title">
-	|	  	<div class="clndr-previous-button">&lsaquo;</div>
-	|	  	<div id="month"><%= month %> <%= year  %></div>
-	|	  	<div class="clndr-next-button">&rsaquo;</div>
-	|	</div>
-	|	<div id="tableHeaders">
-	|		<% _.each(daysOfTheWeek, function(day){%>
-	|			<div class="table_header"><%= day %></div>
-	|		<% }); %>
-	|	</div>
-	|	<div id="dayContainer">
-	|		<% _.each(days, function(day){ %>
-	|			<div class="<%= day.classes %>">
-	|				<span class="short_day">
-	|					<% var shortDayOfWeek = String(day.date._d).slice(0,3);%>
-	|					<%= shortDayOfWeek %>,
-	|				</span>
-	|				<span class="day_number"><%= day.day %></span>
-	|				<div class="event_container">
-	|					<% if(day.classes.indexOf('adjacent-month') === -1){%>
-	|						<% _.each(day.events, function(){%>
-	|							<%= day.events[0].title %>
-	|						<% }); %>
-	|					<% }; %>
-	|				</div>
-	|				<!-- This will be the indicators for users selecting a certain date.
-	|				<div class="circle_container">
-	|					<% _.each(day.something, function(){%>
-	|						<i class="fa fa-circle"></i>
-	|					<% }); %>
-	|				</div> -->
-	|				<% if(day.classes.indexOf('adjacent-month') === -1){%>
-	|					<div class="info_button_container"><i class="fa fa-info"></i></div>
-	|				<% }; %>
-	|			</div>
-	|		<% }); %>
-	|	</div>
-	</script>
+    #container
+        #calendar
+    <script type="text/template" id="calendar-template">
+    |   <div id="title">
+    |       <div class="clndr-previous-button">&lsaquo;</div>
+    |       <div id="month"><%= month %> <%= year  %></div>
+    |       <div class="clndr-next-button">&rsaquo;</div>
+    |   </div>
+    |   <div id="tableHeaders">
+    |       <% _.each(daysOfTheWeek, function(day){%>
+    |           <div class="table_header"><%= day %></div>
+    |       <% }); %>
+    |   </div>
+    |   <div id="dayContainer">
+    |       <% _.each(days, function(day){ %>
+    |           <div class="<%= day.classes %>">
+    |               <span class="short_day">
+    |                   <% var shortDayOfWeek = String(day.date._d).slice(0,3);%>
+    |                   <%= shortDayOfWeek %>,
+    |               </span>
+    |               <span class="day_number"><%= day.day %></span>
+    |               <div class="event_container">
+    |                   <% if(day.classes.indexOf('adjacent-month') === -1){%>
+    |                       <% _.each(day.events, function(){%>
+    |                           <%= day.events[0].title %>
+    |                       <% }); %>
+    |                   <% }; %>
+    |               </div>
+    |               <!-- This will be the indicators for users selecting a certain date.
+    |               <div class="circle_container">
+    |                   <% _.each(day.something, function(){%>
+    |                       <i class="fa fa-circle"></i>
+    |                   <% }); %>
+    |               </div> -->
+    |               <% if(day.classes.indexOf('adjacent-month') === -1){%>
+    |                   <div class="info_button_container"><i class="fa fa-info"></i></div>
+    |               <% }; %>
+    |           </div>
+    |       <% }); %>
+    |   </div>
+    </script>
+
+    ul
+        each user, i in userlist
+            li
+                a(href="mailto:#{user.email}")= user.username
+
+
