@@ -1,0 +1,167 @@
+body{
+	background:#141416;
+}
+.navbar-default{
+	background:none;
+	border:none;
+}
+.navbar .container-fluid{
+	padding-right:0px;
+}
+.navbar-collapse{
+	padding:0px;
+}
+.navbar .dropdown{
+	background-color:#e7e7e7;
+}
+#calendar{
+	position:relative;
+	max-width:920px;
+	margin:0px auto;
+	color:white;
+	font-family: helvetica, arial, sans-serif;
+}
+#title{
+	text-align:center;
+	margin:20px 0px;
+}
+#month{
+	font-size:2em;
+	display:inline-block;
+}
+.clndr-previous-button{
+	position:absolute;
+	left:-25px;
+	top:350px;
+	font-size:4em;
+	cursor:pointer;
+}
+.clndr-next-button{
+	position:absolute;
+	right:-25px;
+	top:350px;
+	font-size:4em;
+	cursor:pointer;
+}
+#tableHeaders{
+	text-align:center;
+	margin-bottom:20px;
+}
+.table_header{
+	width:120px;
+	margin-right:7px;
+}
+.table_header(7n+7){
+	margin-right:0px;
+}
+.table_header{
+	display:inline-block;
+}
+.day{
+	position:relative;
+	display:inline-block;
+	margin-right:5px;
+	margin-bottom:5px;
+	border:solid 1px gray;
+	border-radius:4px;
+	width:120px;
+	height:120px;
+	cursor:pointer;
+	vertical-align: top;
+	font-size:.9em;
+}
+.day .day_number{
+	display:inline-block;
+	padding:5px;
+	font-size:1.2em;
+}
+.day .short_day{
+	display:none;
+	font-size:1.2em;
+}
+.day.last-month span, .day.next-month span{
+	display:none;
+}
+.day:hover{
+	background:#202024;
+}
+.day.selected{
+	background:#2c2c33;
+}
+.day:nth-child(7n+7){
+	margin-right:0px;
+}
+.day.adjacent-month{
+	cursor:default;
+}
+.event_container{
+	margin-left:5px;
+	height:70px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.circle_container{
+	display:block;
+	position:absolute;
+	bottom:3px;
+	left:5px;
+	width:90px;
+	font-size:.7em;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.info_button_container{
+	display:block;
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	width:10px;
+	color:#7e7e7e;
+}
+.cp-color-picker{
+	z-index:10001;
+}
+footer{
+	width:100%;
+	height:200px;
+	margin-top:100px;
+	background-color:#1d1f1f;
+}
+@media(max-width: 919px){
+	#container{
+		text-align:center;
+	}
+	#tableHeaders{
+		display:none;
+	}
+	.day{
+		width:200px;
+		height:200px;
+		font-size:1.2em;
+	}
+	.day:nth-child(7n+7){
+		margin-right:5px;
+	}
+	.day .short_day{
+		display:inline-block;
+	}
+	.day.adjacent-month{
+		display:none;
+	}
+	.clndr-previous-button{
+		position:relative;
+		left:0;
+		top:0;
+		font-size:2em;
+		cursor:pointer;
+		display:inline-block;
+	}
+	.clndr-next-button{
+		position:relative;
+		right:0;
+		top:0;
+		font-size:2em;
+		display:inline-block;
+	}
+}
