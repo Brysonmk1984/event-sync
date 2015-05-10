@@ -83,41 +83,41 @@ html
         .modal-content
           .modal-header
             h4#myModalLabel.modal-title Enroll
-          .modal-body
-            form
-              .form-group
-                label(for='exampleInputEmail2') Email address
-                input#exampleInputEmail2.form-control(type='email', placeholder='Enter email')
+          form(action='/enroll', method='post', name='enroll')
+            .modal-body
               .form-group
                 label(for='exampleInputEmail2') Username
-                input#usernameInput2.form-control(placeholder='Enter Username')
+                input#usernameInput2.form-control(placeholder='Enter Username', name='enrollUserName')
               .form-group
                 label(for='exampleInputPassword2') Password
-                input#exampleInputPassword2.form-control(type='password', placeholder='Password')
+                input#exampleInputPassword2.form-control(type='password', placeholder='Password', name='enrollPassword')
+              .form-group
+                label(for='exampleInputEmail2') Email address
+                input#exampleInputEmail2.form-control(type='email', placeholder='Enter email', name='enrollEmail')
               .form-group
                 label(for='exampleInputPassword2') Color
-                input#exampleInputPassword2.form-control.color(placeholder='Choose your color')
-          .modal-footer
-            button.btn.btn-default(type='submit') Submit
+                input#exampleInputPassword2.form-control.color(placeholder='Choose your color', name='enrollColor')
+            .modal-footer
+               button.btn.btn-default(type='submit') Submit
     #loginModal.modal.fade(data-backdrop='static', data-keyboard='false', tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
       .modal-dialog
         .modal-content
           .modal-header
             h4#myModalLabel.modal-title Login
-          .modal-body
-            form
+          form(action='/login', method='post', name='login')
+            .modal-body
               .form-group
                 label(for='exampleInputEmail1') Username
-                input#usernameInput1.form-control(placeholder='Enter Username')
+                input#usernameInput1.form-control(placeholder='Enter Username', name='loginUserName')
               .form-group
                 label(for='exampleInputPassword1') Password
-                input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+                input#exampleInputPassword1.form-control(type='password', placeholder='Password', name='loginPassword')
             div
               strong
                 | New to Event Sync? 
                 a#enrollNowLink Enroll Now!
-          .modal-footer
-            button.btn.btn-default(type='submit') Submit
+            .modal-footer
+              button.btn.btn-default(type='submit') Submit
     #inviteModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
       .modal-dialog
         .modal-content
