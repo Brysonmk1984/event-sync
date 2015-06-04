@@ -1,0 +1,21 @@
+extends layout
+
+block content
+	section#enroll
+		#enrollContainer
+			form(action='/signup', method='POST')
+				.form-group
+					label(for='exampleInputEmail1') Username
+					input#usernameInput1.form-control(placeholder='Enter Username', name='signupUsername')
+				.form-group
+					label(for='exampleInputPassword1') Password
+					input#exampleInputPassword1.form-control(type='password', placeholder='password', name='signupPassword')
+				.form-group
+					label(for='exampleInputEmail2') Email address
+					input#exampleInputEmail2.form-control(type='email', placeholder='Enter email', name='email')
+				.form-group
+					label(for='exampleInputPassword2') Color
+					input#exampleInputPassword2.form-control.color(placeholder='Choose your color', name='color')
+				.modal-footer
+				div
+				button.btn.btn-default.btn-block(type='submit') Submit

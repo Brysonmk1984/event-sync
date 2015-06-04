@@ -1,74 +1,52 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  	//res.render('index', { title: 'Express' });
-   	var db = req.db;
-    var collection = db.get('users');
-    collection.find({},{},function(e,docs){
-        res.render('index', {
-            "userlist" : docs
-        });
-    });
-});
+var isAuthenticated = function (req, res, next) {
+	// if user is authenticated in the session, call the next() to call the next request handler 
+	// Passport adds this method to request object. A middleware is allowed to add properties to
+	// request and response objects
+	if (req.isAuthenticated())
+		return next();
+	// if the user is not authenticated then redirect him to the login page
+	res.redirect('/login');
+}
 
-/*
-API
-*/
-
-/* Enroll in EventSync */
-router.post('/enroll', function(req, res) {
-	//Get form values
-	var db = req.db;
-	var userName = req.body.enrollUserName;
-	var email = req.body.enrollEmail;
-	var password = req.body.enrollPassword;
-	var color = req.body.enrollColor;
-
-	//Set our Collection
-	var collection = db.get('users');
-
-	//Submit to the DB
-	collection.insert({
-		"userName":userName,
-		"email":email,
-		"password":password,
-		"color":color
-	},function(err,doc){
-		if(err){
-			// If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-		}else{
-			// If it worked, set the header so the address bar doesn't still say /enroll
-            res.location("");
-            // And forward to success page
-            res.redirect("/");
-		}
+module.exports = function(passport){
+	/* GET Login page */
+	router.get('/login', function(req, res) {
+		res.render('login', { title: 'Log In', user : 'Login'});
 	});
-});
 
+	/* GET signup page */
+	router.get('/signup', function(req, res) {
+		res.render('signup', { title: 'Sign Up', user : 'Login' });
+	});
 
-/* Login to EventSync */
-router.post('/login', function(req, res) {
-    var db = req.db;
-    var userName = req.body.loginUserName;
-	var password = req.body.loginPassword;
-    var collection = db.get('users');
-    console.log(userName,password);
-    collection.find({"userName":userName,"password":password},{},function(e,docs){
-    	if(docs.length == 0){
-    		res.send("Your User Name or Password is incorrect.");
-    	}else{
-			// If it worked, set the header so the address bar doesn't still say /login
-	        res.location("");
-	        // And forward to success page
-	        res.redirect("/");
-	        console.log(docs);
-    	}
-		
-    });
-});
+	/* GET Home Page */
+	router.get('/', isAuthenticated, function(req, res){
+		res.render('index', { 
+			user: req.user, 
+		});
+	});
 
+	/* Handle Registration POST */
+	router.post('/signup', passport.authenticate('signup', {
+		successRedirect: '/',
+		failureRedirect: '/signup',
+		failureFlash : true  
+	}));
 
-module.exports = router;
+	/* Login to EventSync */
+	router.post('/login', passport.authenticate('login', {
+		successRedirect: '/',
+		failureRedirect: '/login',
+		failureFlash: true
+	}));
+
+	/* Logout of EventSync */
+	router.get('/logout', function(req,res){
+		req.logout();
+		res.redirect('/');
+	});
+	return router;
+}

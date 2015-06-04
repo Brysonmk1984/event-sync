@@ -48,10 +48,16 @@ html
                 a(href='#')
                   i.fa.fa-user-plus
                   |  Invite Friend
-              li.active
-                a(href='#')
-                  i.fa.fa-user
-                  |  Login
+              li.active.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                  i.fa.fa-user 
+                  | #{user.username || 'Login'} 
+                  span.caret
+                ul.dropdown-menu(role='menu')
+                  li
+                    a(href='/logout') Log Out
+
+                 
 
 
     // Page content
@@ -83,7 +89,7 @@ html
         .modal-content
           .modal-header
             h4#myModalLabel.modal-title Enroll
-          form(action='/enroll', method='post', name='enroll')
+          form(action='/signup', method='post', name='enroll')
             .modal-body
               .form-group
                 label(for='exampleInputEmail2') Username

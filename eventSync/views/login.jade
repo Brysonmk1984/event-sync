@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	section#login
+		#loginContainer
+			form(action='/login', method='post', name='login')
+				.form-group
+					label(for='exampleInputEmail1') Username
+					input#usernameInput1.form-control(placeholder='Enter Username', name='loginUsername')
+				.form-group
+					label(for='exampleInputPassword1') Password
+					input#exampleInputPassword1.form-control(type='password', placeholder='Password', name='loginPassword')
+				div
+				strong
+					| New to Event Sync? 
+					a(href="/enroll")#enrollNowLink Enroll Now!
+				button.btn.btn-default(type='submit') Submit
