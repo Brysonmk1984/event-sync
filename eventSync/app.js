@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressSession = require('express-session');
-
+var object_id = mongoose.Types.ObjectId();
 // Connect to DB
 mongoose.connect('mongodb://localhost/eventSync');
 var db = mongoose.connection;

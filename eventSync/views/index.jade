@@ -27,6 +27,9 @@ block content
     |                       <% _.each(day.events, function(){%>
     |                           <%= day.events[0].title %>
     |                       <% }); %>
+    |                       <% _.each(day.events, function(){%>
+    |                           <%= day.events[0].title %>
+    |                       <% }); %>
     |                   <% }; %>
     |               </div>
     |               <!-- This will be the indicators for users selecting a certain date.
@@ -41,8 +44,8 @@ block content
     |           </div>
     |       <% }); %>
     |   </div>
+
     </script>
-    //- ul
-    //-     each user, i in userlist
-    //-         li
-    //-             a(href="mailto:#{user.email}")= user.userName
+    //ul
+    //    each val in primaryEvents
+    //       li= val

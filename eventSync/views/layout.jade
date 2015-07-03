@@ -49,9 +49,9 @@ html
                   i.fa.fa-user-plus
                   |  Invite Friend
               li.active.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                a.dropdown-toggle(href='', data-toggle='dropdown', role='button', aria-expanded='false')
                   i.fa.fa-user 
-                  | #{user.username || 'Login'} 
+                  //| #{user.username || 'Login'} 
                   span.caret
                 ul.dropdown-menu(role='menu')
                   li
@@ -150,18 +150,18 @@ html
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
             h4#myModalLabel.modal-title New Event
-          .modal-body
-            form
+          form(action='/events', method='post', name='addEvent')
+            .modal-body
               .form-group
                 label(for='customEventName') Event Name
-                input#customEventName.form-control
+                input#customEventName.form-control(name='customEventName')
               .form-group
                 label(for='customEventDate') Event Date
-                input#customEventDate.form-control(type='date')
+                input#customEventDate.form-control(name='customEventDate' type='date')
               .form-group
                 label(for='custonEventDesctiption') Event Description
-                textarea#custonEventDesctiption.form-control
-          .modal-footer
-            button.btn.btn-default.btn-primary(type='button', data-dismiss='modal') Close
-            |  
-            button.btn.btn-default(type='submit') Submit
+                textarea#custonEventDesctiption.form-control(name='customEventDescription')
+            .modal-footer
+              button.btn.btn-default.btn-primary(type='button', data-dismiss='modal') Close
+              |  
+              button.btn.btn-default(type='submit') Submit
