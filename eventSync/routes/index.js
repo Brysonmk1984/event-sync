@@ -32,6 +32,7 @@ module.exports = function(passport){
 			user: req.user,
 			primaryEvents: req.user.primaryEvents
 		});
+		console.log(req.user.primaryEvents);
 	});
 
 	/* Handle Registration POST */

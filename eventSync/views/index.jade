@@ -24,11 +24,8 @@ block content
     |               <span class="day_number"><%= day.day %></span>
     |               <div class="event_container">
     |                   <% if(day.classes.indexOf('adjacent-month') === -1){%>
-    |                       <% _.each(day.events, function(){%>
-    |                           <%= day.events[0].title %>
-    |                       <% }); %>
-    |                       <% _.each(day.events, function(){%>
-    |                           <%= day.events[0].title %>
+    |                       <% _.each(day.events, function(num,index){%>
+    |                           <%= day.events[index].title %>
     |                       <% }); %>
     |                   <% }; %>
     |               </div>
@@ -46,6 +43,8 @@ block content
     |   </div>
 
     </script>
-    //ul
-    //    each val in primaryEvents
-    //       li= val
+    ul
+        each val in primaryEvents
+           li= val.name
+    script(type='text/javascript').
+        var dbEvents =!{JSON.stringify(primaryEvents)}

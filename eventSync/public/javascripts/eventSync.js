@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	var CALENDAR = (function(){
-		$("#calendar").clndr({
+		var clndrInstance = $("#calendar").clndr({
 			template: $('#calendar-template').html(),
 			daysOfTheWeek : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 			events : [
-				{"date":"2015-01-01","title":"New Year's Day"},{"date":"2015-01-19","title":"Martin Luther King Day"},{"date":"2015-02-02","title":"Groundhog Day"},{"date":"2015-02-14","title":"Valentine's Day"},{"date":"2015-02-16","title":"Presidents Day"},{"date":"2015-03-08","title":"Daylight Savings"},{"date":"2015-03-17","title":"St. Patrick's Day"},{"date":"2015-04-01","title":"April Fool's Day"},{"date":"2015-04-05","title":"Easter"},{"date":"2015-04-22","title":"Earth Day"},{"date":"2015-05-05","title":"Cinco De Mayo"},{"date":"2015-05-10","title":"Mothers Day"},{"date":"2015-05-25","title":"Memorial Day"},{"date":"2015-06-21","title":"Father's Day"},{"date":"2015-07-04","title":"Independence Day"},{"date":"2015-09-07","title":"Labor Day"},{"date":"2015-10-12","title":"Columbus Day"},{"date":"2015-10-31","title":"Halloween"},{"date":"2015-11-01","title":"Daylight Saving"},{"date":"2015-11-11","title":"Veterans' Day"},{"date":"2015-11-26","title":"Thanksgiving"},{"date":"2015-12-25","title":"Christmas Day"},{"date":"2015-12-31","title":"New Year's Eve"},
+				{"date":"2015-01-01","title":"New Year's Day"},{"date":"2015-01-19","title":"Martin Luther King Day"},{"date":"2015-02-02","title":"Groundhog Day"},{"date":"2015-02-14","title":"Valentine's Day"},{"date":"2015-02-16","title":"Presidents Day"},{"date":"2015-03-08","title":"Daylight Savings"},{"date":"2015-03-17","title":"St. Patrick's Day"},{"date":"2015-04-01","title":"April Fool's Day"},{"date":"2015-04-05","title":"Easter"},{"date":"2015-04-22","title":"Earth Day"},{"date":"2015-05-05","title":"Cinco De Mayo"},{"date":"2015-05-10","title":"Mothers Day"},{"date":"2015-05-25","title":"Memorial Day"},{"date":"2015-06-21","title":"Father's Day"},{"date":"2015-07-04","title":"Independence Day1"},{"date":"2015-09-07","title":"Labor Day"},{"date":"2015-10-12","title":"Columbus Day"},{"date":"2015-10-31","title":"Halloween"},{"date":"2015-11-01","title":"Daylight Saving"},{"date":"2015-11-11","title":"Veterans' Day"},{"date":"2015-11-26","title":"Thanksgiving"},{"date":"2015-12-25","title":"Christmas Day"},{"date":"2015-12-31","title":"New Year's Eve"}
 			],
 			clickEvents : {
 				click: function(target){
@@ -43,6 +43,14 @@ $(document).ready(function(){
 				}
 			}
 		});
+		console.log(dbEvents);
+		var events2 = [];
+		for(var i=0; i< dbEvents.length; i++){
+			console.log(dbEvents[i].date);
+			var currentObj = {"date": dbEvents[i].date, "title": dbEvents[i]['name']};
+			events2.push(currentObj);
+		}
+		clndrInstance.addEvents(events2);
 	})();
 	var COLORPICKER = (function(){
 		$('.color').colorPicker();
