@@ -62,6 +62,9 @@ module.exports = function(passport){
 			if (err) return console.error(err);
   			// Create a new ObjectID
 			var objectId = new ObjectID();
+  			/* BK - Need to figure out how to check if record exists first */
+  			/*console.log(11111111111111111111111,req.user.primaryEvents);
+  			User.find*/
   			User.update(
   				{"username" : loggedInUser},
   				{
@@ -79,7 +82,10 @@ module.exports = function(passport){
   					console.log('made it to the calback');
   					if(err)
   						res.send(err);
-  					res.render('index.jade');
+  					res.render('index', { 
+  						user: req.user,
+  						primaryEvents: req.user.primaryEvents
+  					});
   					//req.flash('success', {msg: 'Sign Up Success'});
   				}
   			);
@@ -98,25 +104,14 @@ module.exports = function(passport){
 
 	/* Delete Event from EventSync */
 	router.get('/events/:event_id',function(req,res){
-		//var loggedInUser = req.user.username;
-		//var loggedInUserId = req.user._id;
-
 		var passedEventId = req.params.event_id;
 		var loggedInUserId = req.user._id;
-		console.log(passedEventId,loggedInUserId);
-		/*User.remove({
-			_id: req.params.event_id
-		}, function(err, bear){
-			if(err)
-				res.send(err);
 
-			res.json({message: 'Successfully deleted'});
-		});*/
-
-		console.log(111,req.params.event_id);
 		User.update({"_id" : loggedInUserId}, {$pull: {"primaryEvents":{"_id":new ObjectId(passedEventId)}}},{ safe: true },function(){
-			console.log('cb');
+			console.log('Delete complete');
+
 		});
+		res.send("Event " + passedEventId + " has been deleted");
 
 	});
 	return router;

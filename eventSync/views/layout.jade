@@ -80,7 +80,12 @@ html
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
             h4#myModalLabel.modal-title Events on This Date
-          .modal-body ...
+          .modal-body
+            table.table.table-list.width_full
+              tr
+                th Event
+                th Description
+                th Delete
           .modal-footer
             button.btn.btn-default.btn-primary(type='button', data-dismiss='modal') Close
     #enrollModal.modal.fade(data-backdrop='static', data-keyboard='false', tabindex='-1', role='dialog', aria-labelledby='myModalLabel')

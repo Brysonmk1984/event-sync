@@ -9,29 +9,22 @@ $(document).ready(function(){
 			clickEvents : {
 				click: function(target){
 					setTimeout(function(){
-						console.log(target);
 						var clickedOnInfo = $(target.element).hasClass('active_info');
 						
 						if(clickedOnInfo){
-							console.log(target);
-							$("#eventDigestModal h4").text("Events on " + target.date._i);
-							console.log(target.events);
+							$("#eventDigestModal h4").text(target.date.format("MMMM DD, YYYY"));
 							var eventsString;
 							if(target.events.length){
-								eventsString = "<ul>";
-								for(var i=0; i<target.events.length;i++){
-									eventsString += ("<li>" + target.events[i].title + "</li>");
+								eventsString = "";
+								for(var i=0; i<target.events.length;i++){console.log(target.events[i]);
+									eventsString += ("<tr><td>" + target.events[i].title + " </td><td> " + target.events[i].description + "</td><td><i class='fa fa-remove click_delete_event' data-id='" + target.events[i]._id + "'></i></td></tr>");
 								};
 								eventsString += "</ul>";
 							}else{
 								eventsString = "<div>No events on this date.</div>"
 							}
-							
-								
-							
-								
-							console.log(eventsString);
-							$("#eventDigestModal .modal-body").html(eventsString);
+
+							$("#eventDigestModal .modal-body table").append(eventsString);
 							$("#eventDigestModal").modal();
 						}else if(!$(target.element).hasClass('adjacent-month')){
 							$(target.element).toggleClass('selected');
@@ -43,11 +36,9 @@ $(document).ready(function(){
 				}
 			}
 		});
-		console.log(dbEvents);
 		var events2 = [];
 		for(var i=0; i< dbEvents.length; i++){
-			console.log(dbEvents[i].date);
-			var currentObj = {"date": dbEvents[i].date, "title": dbEvents[i]['name']};
+			var currentObj = {"date": dbEvents[i].date, "title": dbEvents[i]['name'], "description": dbEvents[i]['description'], "_id" : dbEvents[i]['_id']};
 			events2.push(currentObj);
 		}
 		clndrInstance.addEvents(events2);
@@ -72,5 +63,18 @@ $(document).ready(function(){
 			$("#enrollModal").modal('show');
 		});
 		
+		$(document).on('click','.click_delete_event',function(){
+			var eventId = $(this).data('id');
+			var clickedItem = $(this);
+			console.log(eventId);
+			$.ajax({
+			  method: "GET",
+			  url: "/events/" + eventId,
+			  success: function(data){
+			  	console.log(data,clickedItem);
+			  	clickedItem.closest('tr').remove();
+			  }
+			});
+		});
 	})();
 });
