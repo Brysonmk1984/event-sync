@@ -85,7 +85,7 @@ html
               tr
                 th Event
                 th Description
-                th Delete
+                th Action
           .modal-footer
             button.btn.btn-default.btn-primary(type='button', data-dismiss='modal') Close
     #enrollModal.modal.fade(data-backdrop='static', data-keyboard='false', tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
@@ -169,4 +169,27 @@ html
               button.btn.btn-default.btn-primary(type='button', data-dismiss='modal') Close
               |  
               button.btn.btn-default(type='submit') Submit
+    #updateEventModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4#myModalLabel.modal-title Update Event
+          form(action='/events', method='PUT', name='updateEvent')
+            .modal-body
+                input#hiddenEventId.form-control(name='hiddenEventId' type='hidden')
+              .form-group
+                label(for='updateEventName') Event Name
+                input#updateEventName.form-control(name='updateEventName')
+              .form-group
+                label(for='updateEventDate') Event Date
+                input#updateEventDate.form-control(name='updateEventDate' type='date')
+              .form-group
+                label(for='updateEventDescription') Event Description
+                textarea#updateEventDescription.form-control(name='updateEventDescription')
+            .modal-footer
+              button.btn.btn-default.btn-primary(type='button', data-dismiss='modal') Close
+              |  
+              button.btn.btn-default.click_update_event(type='button') Update
     script(type='text/javascript', src='../javascripts/eventSync.js')

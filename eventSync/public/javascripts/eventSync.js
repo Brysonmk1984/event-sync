@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	var globalEvents2 =[]
 	var CALENDAR = (function(){
 		var clndrInstance = $("#calendar").clndr({
 			template: $('#calendar-template').html(),
@@ -17,7 +18,7 @@ $(document).ready(function(){
 							if(target.events.length){
 								eventsString = "";
 								for(var i=0; i<target.events.length;i++){console.log(target.events[i]);
-									eventsString += ("<tr><td>" + target.events[i].title + " </td><td> " + target.events[i].description + "</td><td><i class='fa fa-remove click_delete_event' data-id='" + target.events[i]._id + "'></i></td></tr>");
+									eventsString += ("<tr><td>" + target.events[i].title + " </td><td> " + target.events[i].description + "</td><td><i class='fa fa-edit fa-lg click_update_event_link' data-id='" + target.events[i]._id + "'></i><i class='fa fa-remove fa-lg click_delete_event' data-id='" + target.events[i]._id + "'></i></td></tr>");
 								};
 								eventsString += "</ul>";
 							}else{
@@ -40,6 +41,7 @@ $(document).ready(function(){
 		for(var i=0; i< dbEvents.length; i++){
 			var currentObj = {"date": dbEvents[i].date, "title": dbEvents[i]['name'], "description": dbEvents[i]['description'], "_id" : dbEvents[i]['_id']};
 			events2.push(currentObj);
+			globalEvents2.push(currentObj);
 		}
 		clndrInstance.addEvents(events2);
 	})();
@@ -68,11 +70,49 @@ $(document).ready(function(){
 			var clickedItem = $(this);
 			console.log(eventId);
 			$.ajax({
-			  method: "GET",
+			  method: "DELETE",
 			  url: "/events/" + eventId,
 			  success: function(data){
 			  	console.log(data,clickedItem);
 			  	clickedItem.closest('tr').remove();
+			  }
+			});
+		});
+
+		$(document).on('click','.click_update_event_link',function(){
+			var eventId = $(this).data('id');
+			var clickedItem = $(this);
+			console.log(eventId);
+			//console.log(globalEvents2);
+			for(var i=0;i<globalEvents2.length; i++){
+				if(globalEvents2[i]['_id'] == eventId){
+					console.log(globalEvents2[i]);
+					$("#hiddenEventId").val(eventId);
+					$("#updateEventName").val(globalEvents2[i].title);
+					$("#updateEventDate").val(globalEvents2[i].date);
+					$("#updateEventDescription").val(globalEvents2[i].description);
+				}
+			}
+			$("#eventDigestModal").modal('hide');
+			$("#updateEventModal").modal('show');
+
+			
+			
+		});
+		$(document).on('click','.click_update_event',function(){
+			var eventName = $("#updateEventName").val();
+			var eventDescription = $("#updateEventDescription").val();
+			var eventDate = $("#updateEventDate").val();
+			var eventId = $("#hiddenEventId").val();
+			var dataString = 'name='+eventName+'&date='+eventDate+'&description='+eventDescription;
+			console.log(dataString);
+			$.ajax({
+			  method: "PUT",
+			  data: dataString,
+			  url: "/events/" + eventId,
+			  success: function(data){
+			  	console.log(data);
+			  	$("#updateEventModal").modal('hide');
 			  }
 			});
 		});

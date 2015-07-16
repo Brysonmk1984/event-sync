@@ -32,7 +32,7 @@ module.exports = function(passport){
 			user: req.user,
 			primaryEvents: req.user.primaryEvents
 		});
-		console.log(req.user.primaryEvents);
+		//console.log(req.user.primaryEvents);
 	});
 
 	/* Handle Registration POST */
@@ -93,25 +93,41 @@ module.exports = function(passport){
 		}); 
 	});
 
-	router.get('/testEvents', function(req,res){
-		var loggedInUser = req.user.username;
-		User.findOne({"username" : loggedInUser}, function(err,userInDb){
-			//console.log(123,req.params.event_id);
-			console.log(567,userInDb);
-		});
-		
-	});
 
 	/* Delete Event from EventSync */
-	router.get('/events/:event_id',function(req,res){
+	router.delete('/events/:event_id', function(req,res){
 		var passedEventId = req.params.event_id;
 		var loggedInUserId = req.user._id;
 
-		User.update({"_id" : loggedInUserId}, {$pull: {"primaryEvents":{"_id":new ObjectId(passedEventId)}}},{ safe: true },function(){
-			console.log('Delete complete');
+		User.update({"_id" : loggedInUserId}, {$update: {"primaryEvents":{"_id":new ObjectId(passedEventId)}}},{ safe: true },function(){
+			console.log('Update complete');
 
 		});
 		res.send("Event " + passedEventId + " has been deleted");
+
+	});
+
+	/* Update Event */
+	router.put('/events/:event_id', function(req,res){
+		var passedEventId = req.params.event_id;
+		var loggedInUserId = req.user._id;
+
+		User.update(
+			{"_id" : loggedInUserId, "primaryEvents._id" : new ObjectId(passedEventId)},
+			{
+			$set:{
+				"primaryEvents.$.name": req.body.name,
+				"primaryEvents.$.date": req.body.date,
+				"primaryEvents.$.description": req.body.description
+			}
+			},
+			function(err){
+				console.log('made it to the calback');
+				console.log(passedEventId, loggedInUserId, req.body);
+			}
+		);
+
+		res.send("Event " + passedEventId + " has been updated");
 
 	});
 	return router;

@@ -131,6 +131,18 @@ footer{
 	margin-top:100px;
 	background-color:#1d1f1f;
 }
+#eventDigestModal .fa{
+	cursor:pointer;
+}
+#eventDigestModal .fa:hover{
+	color:gray;
+}
+#eventDigestModal .fa-edit{
+	margin-right:10px;
+}
+#eventDigestModal .fa-edit{
+	font-size:1.1em;
+}
 /*
 LOGIN PAGE
 ========================================================
